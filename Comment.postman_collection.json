@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "ac391d5c-1d22-43a0-91f4-218204366ce8",
+		"name": "Comment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - Comment with Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"var schema = {\r",
+							"   \"type\": \"array\",\r",
+							"   \"items\": { \"$ref\": \"commentSchema\" }\r",
+							"};\r",
+							"\r",
+							"var commentSchema = {\r",
+							"    \"properties\": {\r",
+							"    \"postId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"email\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"body\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  }\r",
+							"  }\r",
+							"\r",
+							"\r",
+							"tv4.addSchema =('commentSchema', commentSchema);\r",
+							"\r",
+							"pm.test(\"Status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser valido y no null\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test('Comment schema es valido', function() {\r",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PostId igual a 5\", function () {      pm.expect(pm.response.text()).to.include('\"postId\": 5'); });\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/{{endPointComments}}?postId=5",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointComments}}"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"var schema = {\r",
+							"   \"type\": \"array\",\r",
+							"   \"items\": { \"$ref\": \"commentSchema\" }\r",
+							"};\r",
+							"\r",
+							"var commentSchema = {\r",
+							"    \"properties\": {\r",
+							"    \"postId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"email\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"body\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  }\r",
+							"  }\r",
+							"\r",
+							"\r",
+							"tv4.addSchema =('commentSchema', commentSchema);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser valido y no null\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test('Comment schema es valido', function() {\r",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointComments}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointComments}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Comment not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser notFound y no null\", function () {\r",
+							"    pm.response.to.be.notFound;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointPhotos}}/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointPhotos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

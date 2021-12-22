@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "cb5498b6-6eac-48a0-919f-4fdb08c91cca",
+		"name": "Post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"var schema = {\r",
+							"   \"type\": \"array\",\r",
+							"   \"items\": { \"$ref\": \"postSchema\" }\r",
+							"};\r",
+							"\r",
+							"var postSchema = {\r",
+							"    \"properties\": {\r",
+							"    \"userId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"email\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"body\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"      \"required\": [\r",
+							"        \"postId\",\r",
+							"        \"id\",\r",
+							"        \"name\",\r",
+							"        \"email\",\r",
+							"        \"body\"\r",
+							"      ]\r",
+							"  }\r",
+							"  }\r",
+							"\r",
+							"\r",
+							"tv4.addSchema =('postSchema', postSchema);\r",
+							"\r",
+							"pm.test(\"Status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser valido y no null\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test('Comment schema es valido', function() {\r",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointPosts}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointPosts}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Post Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser notFound y no null\", function () {\r",
+							"    pm.response.to.be.notFound;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointPosts}}/tods",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointPosts}}",
+						"tods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Post with id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"var schema = {\r",
+							"   \"type\": \"object\",\r",
+							"   \"items\": { \"$ref\": \"postSchema\" }\r",
+							"};\r",
+							"\r",
+							"var postSchema = {\r",
+							"    \"properties\": {\r",
+							"    \"userId\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"id\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"email\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"body\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"      \"required\": [\r",
+							"        \"postId\",\r",
+							"        \"id\",\r",
+							"        \"name\",\r",
+							"        \"email\",\r",
+							"        \"body\"\r",
+							"      ]\r",
+							"  }\r",
+							"  }\r",
+							"\r",
+							"\r",
+							"tv4.addSchema =('postSchema', postSchema);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser valido y no null\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test('Post schema es valido', function() {\r",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"UserID igual a 1\", function () {      pm.expect(pm.response.text()).to.include('\"userId\": 1'); });\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointPosts}}/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointPosts}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL- Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Payload tiene que ser ok y no null\", function () {\r",
+							"    pm.response.to.be.ok;\r",
+							"    pm.response.to.be.withBody; \r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointPosts}}/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointPosts}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
